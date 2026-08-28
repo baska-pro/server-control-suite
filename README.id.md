@@ -21,6 +21,15 @@
   <a href="./SECURITY.md">Security</a>
 </p>
 
+<p align="center">
+  <a href="https://github.com/baska-pro/server-control-suite/releases/tag/linux-v4.0.0">
+    <img src="https://img.shields.io/badge/Download-Linux%20v4.0.0-111827?style=for-the-badge&logo=linux&logoColor=white" alt="Download Linux v4.0.0">
+  </a>
+  <a href="https://github.com/baska-pro/server-control-suite/releases/tag/windows-v5.0.0">
+    <img src="https://img.shields.io/badge/Download-Windows%20v5.0.0-0078D4?style=for-the-badge&logo=windows11&logoColor=white" alt="Download Windows v5.0.0">
+  </a>
+</p>
+
 ---
 
 ## Tentang Project
@@ -99,7 +108,7 @@ Extract ZIP, lalu pilih file sesuai sistem operasi.
 
 ### Cara 3 — GitHub Release
 
-Jika Release sudah dibuat, download file platform yang diperlukan:
+Release Linux dan Windows sudah tersedia. Download file sesuai platform yang diperlukan:
 
 ```text
 server_control_linux.py
@@ -240,6 +249,54 @@ Jalankan file `server_control_win.py` terbaru secara normal. Script akan memperb
 Panduan lengkap:
 
 [docs/UPDATE.md](./docs/UPDATE.md)
+
+## Screenshot
+
+### Linux
+
+<p align="center">
+  <img src="./assets/screenshots/linux-dashboard.PNG" width="92%" alt="Dashboard Server Control Suite Linux">
+</p>
+
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <img src="./assets/screenshots/linux-telegram.PNG" width="100%" alt="Telegram Bot Linux"><br>
+      <strong>Kontrol Telegram</strong>
+    </td>
+    <td width="50%" align="center">
+      <img src="./assets/screenshots/linux-files.PNG" width="100%" alt="File Manager Linux"><br>
+      <strong>File Manager</strong>
+    </td>
+  </tr>
+</table>
+
+### Windows
+
+<p align="center">
+  <img src="./assets/screenshots/windows-dashboard.PNG" width="92%" alt="Dashboard Server Control Suite Windows">
+</p>
+
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <img src="./assets/screenshots/windows-telegram.PNG" width="100%" alt="Telegram Bot Windows"><br>
+      <strong>Kontrol Telegram</strong>
+    </td>
+    <td width="50%" align="center">
+      <img src="./assets/screenshots/windows-terminal.PNG" width="100%" alt="Web Terminal Windows"><br>
+      <strong>Web Terminal</strong>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <img src="./assets/screenshots/windows-script.PNG" width="70%" alt="Manajemen Script Windows"><br>
+      <strong>Manajemen Script</strong>
+    </td>
+  </tr>
+</table>
+
+Screenshot lainnya tersedia di [`assets/screenshots/`](./assets/screenshots/).
 
 ## Versi
 
