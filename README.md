@@ -22,6 +22,15 @@
   <a href="./SECURITY.md">Security</a>
 </p>
 
+<p align="center">
+  <a href="https://github.com/baska-pro/server-control-suite/releases/tag/linux-v4.0.0">
+    <img src="https://img.shields.io/badge/Download-Linux%20v4.0.0-111827?style=for-the-badge&logo=linux&logoColor=white" alt="Download Linux v4.0.0">
+  </a>
+  <a href="https://github.com/baska-pro/server-control-suite/releases/tag/windows-v5.0.0">
+    <img src="https://img.shields.io/badge/Download-Windows%20v5.0.0-0078D4?style=for-the-badge&logo=windows11&logoColor=white" alt="Download Windows v5.0.0">
+  </a>
+</p>
+
 ---
 
 ## Overview
@@ -126,7 +135,7 @@ Extract the archive and choose the script for your operating system.
 
 ### Option 3 — GitHub Release
 
-When releases are published, download only the platform file you need from the latest release:
+Platform releases are available now. Download the file for the operating system you need:
 
 ```text
 server_control_linux.py
@@ -274,21 +283,51 @@ server-control-suite/
 
 ## Screenshots
 
-Place application screenshots in:
+### Linux
 
-```text
-assets/screenshots/
-```
+<p align="center">
+  <img src="./assets/screenshots/linux-dashboard.PNG" width="92%" alt="Server Control Suite Linux Dashboard">
+</p>
 
-Recommended names:
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <img src="./assets/screenshots/linux-telegram.PNG" width="100%" alt="Linux Telegram Bot"><br>
+      <strong>Telegram Control</strong>
+    </td>
+    <td width="50%" align="center">
+      <img src="./assets/screenshots/linux-files.PNG" width="100%" alt="Linux File Manager"><br>
+      <strong>File Manager</strong>
+    </td>
+  </tr>
+</table>
 
-```text
-linux-dashboard.png
-linux-telegram.png
-windows-dashboard.png
-windows-telegram.png
-windows-setup.png
-```
+### Windows
+
+<p align="center">
+  <img src="./assets/screenshots/windows-dashboard.PNG" width="92%" alt="Server Control Suite Windows Dashboard">
+</p>
+
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <img src="./assets/screenshots/windows-telegram.PNG" width="100%" alt="Windows Telegram Bot"><br>
+      <strong>Telegram Control</strong>
+    </td>
+    <td width="50%" align="center">
+      <img src="./assets/screenshots/windows-terminal.PNG" width="100%" alt="Windows Web Terminal"><br>
+      <strong>Web Terminal</strong>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <img src="./assets/screenshots/windows-script.PNG" width="70%" alt="Windows Script Management"><br>
+      <strong>Script Management</strong>
+    </td>
+  </tr>
+</table>
+
+More screenshots are available in [`assets/screenshots/`](./assets/screenshots/).
 
 ## Releases and Versioning
 
