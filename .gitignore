@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+
+# Secrets / configuration
+.env
+.env.*
+!.env.example
+config.json
+managed_tasks.json
+*.secret
+*.token
+credentials.*
+secrets.*
+
+# Logs / runtime
+*.log
+*.log.*
+.sc_logs/
+script_logs/
+nohup.out
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Local backups
+*.bak
+*.old
+*.tmp
+
+# Build / release scratch
+build/
+dist/
+release/
