@@ -1,0 +1,147 @@
+[
+  {
+    "path": ".env.example",
+    "size": 502,
+    "sha256": "e911025cb79ffacc5667b694ed9407a9627d3e5583962552ec311c34de3c255d"
+  },
+  {
+    "path": ".gitattributes",
+    "size": 131,
+    "sha256": "b82c59d68f019421b13865e0bde13f7f75134676822af306cb07314f7bce3936"
+  },
+  {
+    "path": ".github/ISSUE_TEMPLATE/bug_report.yml",
+    "size": 1224,
+    "sha256": "940ea16fe76f6d2a63be703f2a28e36af5835039d60d3aeb71a3762f227198f9"
+  },
+  {
+    "path": ".github/ISSUE_TEMPLATE/config.yml",
+    "size": 230,
+    "sha256": "0093ee4746742f8925f153bcdd5de00c1e311c8a95e83bb69728a18d88688cf1"
+  },
+  {
+    "path": ".github/ISSUE_TEMPLATE/feature_request.yml",
+    "size": 575,
+    "sha256": "a98c64f526281e7488337328911d29450a87ea8d39a367bbe14c7933d41587c0"
+  },
+  {
+    "path": ".github/PULL_REQUEST_TEMPLATE.md",
+    "size": 561,
+    "sha256": "6272c4fb1f2ae0cb4d117d8812c259d8dd422063c42193cf90f41ff5895bdf20"
+  },
+  {
+    "path": ".gitignore",
+    "size": 390,
+    "sha256": "c560b29d926ae0e6d7406ce3ec4c04208e787b148ac7f0096cc17074f532532a"
+  },
+  {
+    "path": "CHANGELOG.md",
+    "size": 1013,
+    "sha256": "b30340c9c006cb019e8dba0be17f9d7f3abad954f4f65bbc7b9974ddc40f23e3"
+  },
+  {
+    "path": "CONTRIBUTING.md",
+    "size": 951,
+    "sha256": "9885886a4c8c48dc85ce15b5270306bf5a755eec0594934a38614570c2bc5a9f"
+  },
+  {
+    "path": "LICENSE",
+    "size": 965,
+    "sha256": "f91ff1d9c666523ec6bba2322a782ea8ae06f6cf189485dd91fe17493b0b0f8f"
+  },
+  {
+    "path": "README.id.md",
+    "size": 6197,
+    "sha256": "897dbc91a235d9add4e1e6c4a862937025c33ba919b9e24da2f4103491be21f6"
+  },
+  {
+    "path": "README.md",
+    "size": 8789,
+    "sha256": "a1cb6d8fc4e8415e1cc7e2754f7cfe6338fba60b20e31cab222535d1480a7b8c"
+  },
+  {
+    "path": "SECURITY.md",
+    "size": 945,
+    "sha256": "f0553527cf75a6ec0846662669b8d159dee0a87b54bd253b836efd7cc7f4dcf2"
+  },
+  {
+    "path": "VERSIONS.md",
+    "size": 297,
+    "sha256": "fa8def6c0bddb17a0727480b8acf2989791afb0bebe226e8d838990a0cdaa19c"
+  },
+  {
+    "path": "assets/screenshots/README.md",
+    "size": 447,
+    "sha256": "206d51795cc0172bf8ddfe8d6535e5d7751cf2572d6e5167c47c245f1c5e026b"
+  },
+  {
+    "path": "docs/ARCHITECTURE.md",
+    "size": 1474,
+    "sha256": "5c5dcf1a3b0231bd3a968d8bc4c47db2c6e24289a51d671d1ec072f0d2c8eb46"
+  },
+  {
+    "path": "docs/CONFIGURATION.md",
+    "size": 1571,
+    "sha256": "59c00b4ebd76755e1f9a0adc8c20dcc612b349545f705b56dcf552404d8808fa"
+  },
+  {
+    "path": "docs/GITHUB_SETUP.md",
+    "size": 904,
+    "sha256": "2a4f15dd11e9513f802e94a95dcb168a425334c8d134aee14d6bc94cd2fa8dfc"
+  },
+  {
+    "path": "docs/INSTALL_LINUX.md",
+    "size": 3290,
+    "sha256": "7bc8e193f77e1c0cac163c3a534cf7aa9c31468738c8d1f906b083411a12a427"
+  },
+  {
+    "path": "docs/INSTALL_WINDOWS.md",
+    "size": 2747,
+    "sha256": "a6b20e79dbd066bc50f8e6f4814f707eadd3b5d3402513ed879a168db973763d"
+  },
+  {
+    "path": "docs/RELEASE_CHECKLIST.md",
+    "size": 1050,
+    "sha256": "e953c8c72eb9b753184defe00be06c5b3d4ce4ad7ee19f782b9c7ba492b8ade8"
+  },
+  {
+    "path": "docs/SECURITY_HARDENING.md",
+    "size": 1965,
+    "sha256": "85631aab45f2565798aed64320a5ebecc53c4ef5ac8853fc371b09ef0d32c134"
+  },
+  {
+    "path": "docs/UPDATE.md",
+    "size": 1645,
+    "sha256": "8e1b7749c908d7399f1a51a286af0b1340ef9bc31516f1c1354ac85a7f84d576"
+  },
+  {
+    "path": "install/linux/server-control.env.example",
+    "size": 252,
+    "sha256": "3eb3e43fd09925c2b5bebf8c21e64f6dbc99d237cfc3dbe619b06efce8854def"
+  },
+  {
+    "path": "install/linux/server-control.service.example",
+    "size": 421,
+    "sha256": "726e9a81031fe3b5a906f4f23698e87074459750603100abe9358da925c35d09"
+  },
+  {
+    "path": "requirements-linux.txt",
+    "size": 90,
+    "sha256": "8e2fe50c0d17dc9e864f7313dd7484b18701d75bdcf0b1adc4d8b8b92ee26c27"
+  },
+  {
+    "path": "requirements-windows.txt",
+    "size": 121,
+    "sha256": "a34acd87ae00a0b87e14183d831cac221c1e492dd004b9d00dd7566bfb21f2b6"
+  },
+  {
+    "path": "server_control_linux.py",
+    "size": 185072,
+    "sha256": "945f00383dc8901361d9d1bfab223e04d6ba39c5798513732180dd8dd78f78c9"
+  },
+  {
+    "path": "server_control_win.py",
+    "size": 215348,
+    "sha256": "61d06d70d75925783e633b33820df351865d21ba1c2927bdba5bb71c922caae5"
+  }
+]

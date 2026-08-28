@@ -1,0 +1,5 @@
+python-telegram-bot[job-queue]>=21,<23
+psutil>=5.9
+flask>=3,<4
+humanize>=4
+requests>=2.31

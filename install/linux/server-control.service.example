@@ -1,0 +1,16 @@
+[Unit]
+Description=Server Control Suite (Linux)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=YOUR_LINUX_USER
+WorkingDirectory=/opt/server-control-suite
+EnvironmentFile=/etc/server-control-suite/server-control.env
+ExecStart=/opt/server-control-suite/.venv/bin/python /opt/server-control-suite/server_control_linux.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
