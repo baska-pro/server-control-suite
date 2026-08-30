@@ -1,0 +1,424 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - "**"
+    tags:
+      - "linux-v*"
+      - "windows-v*"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  metadata:
+    name: metadata
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate required files
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          required_files=(
+            "server_control_linux.py"
+            "server_control_win.py"
+            "requirements-linux.txt"
+            "requirements-windows.txt"
+            "VERSIONS.md"
+            "README.md"
+            "CHANGELOG.md"
+            "LICENSE"
+            "SECURITY.md"
+          )
+
+          for file in "${required_files[@]}"; do
+            if [[ ! -f "$file" ]]; then
+              echo "::error::Required file missing: $file"
+              exit 1
+            fi
+
+            echo "OK: $file"
+          done
+
+      - name: Validate platform versions
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          import os
+          import re
+          import sys
+          from pathlib import Path
+
+          versions_text = Path("VERSIONS.md").read_text(
+              encoding="utf-8",
+              errors="replace",
+          )
+
+          linux_match = re.search(
+              r"\|\s*Linux\s*\|\s*([0-9]+\.[0-9]+\.[0-9]+)"
+              r"\s*\|\s*`linux-v([^`]+)`\s*\|",
+              versions_text,
+          )
+
+          windows_match = re.search(
+              r"\|\s*Windows\s*\|\s*([0-9]+\.[0-9]+\.[0-9]+)"
+              r"\s*\|\s*`windows-v([^`]+)`\s*\|",
+              versions_text,
+          )
+
+          if not linux_match:
+              print("::error::Unable to parse Linux version from VERSIONS.md")
+              sys.exit(1)
+
+          if not windows_match:
+              print("::error::Unable to parse Windows version from VERSIONS.md")
+              sys.exit(1)
+
+          linux_version, linux_tag_version = linux_match.groups()
+          windows_version, windows_tag_version = windows_match.groups()
+
+          if linux_version != linux_tag_version:
+              print(
+                  "::error::Linux version and release tag "
+                  "do not match in VERSIONS.md"
+              )
+              sys.exit(1)
+
+          if windows_version != windows_tag_version:
+              print(
+                  "::error::Windows version and release tag "
+                  "do not match in VERSIONS.md"
+              )
+              sys.exit(1)
+
+          # --------------------------------------------------------
+          # Validate Windows source version
+          # --------------------------------------------------------
+          windows_source = Path("server_control_win.py").read_text(
+              encoding="utf-8",
+              errors="replace",
+          )
+
+          windows_source_match = re.search(
+              r'^\s*VERSION\s*=\s*["\']'
+              r'([0-9]+\.[0-9]+\.[0-9]+)'
+              r'["\']',
+              windows_source,
+              re.MULTILINE,
+          )
+
+          if not windows_source_match:
+              print(
+                  "::error::VERSION constant was not found "
+                  "in server_control_win.py"
+              )
+              sys.exit(1)
+
+          windows_source_version = windows_source_match.group(1)
+
+          if windows_source_version != windows_version:
+              print(
+                  "::error::Windows version mismatch: "
+                  f"VERSIONS.md={windows_version}, "
+                  f"source={windows_source_version}"
+              )
+              sys.exit(1)
+
+          # --------------------------------------------------------
+          # Validate Linux version banner
+          # Linux currently exposes major.minor in its header.
+          # --------------------------------------------------------
+          linux_source = Path("server_control_linux.py").read_text(
+              encoding="utf-8",
+              errors="replace",
+          )
+
+          linux_banner = re.search(
+              r"Remote Management Suite\s+v([0-9]+\.[0-9]+)",
+              linux_source,
+          )
+
+          if not linux_banner:
+              print(
+                  "::error::Linux application version banner "
+                  "was not found"
+              )
+              sys.exit(1)
+
+          linux_banner_version = linux_banner.group(1)
+
+          if not linux_version.startswith(linux_banner_version + "."):
+              print(
+                  "::error::Linux version mismatch: "
+                  f"VERSIONS.md={linux_version}, "
+                  f"banner={linux_banner_version}"
+              )
+              sys.exit(1)
+
+          # --------------------------------------------------------
+          # Validate release tags
+          # --------------------------------------------------------
+          ref_type = os.environ.get("GITHUB_REF_TYPE", "")
+          ref_name = os.environ.get("GITHUB_REF_NAME", "")
+
+          if ref_type == "tag":
+              if ref_name.startswith("linux-v"):
+                  expected = f"linux-v{linux_version}"
+
+                  if ref_name != expected:
+                      print(
+                          f"::error::Linux tag {ref_name} "
+                          f"must be {expected}"
+                      )
+                      sys.exit(1)
+
+              elif ref_name.startswith("windows-v"):
+                  expected = f"windows-v{windows_version}"
+
+                  if ref_name != expected:
+                      print(
+                          f"::error::Windows tag {ref_name} "
+                          f"must be {expected}"
+                      )
+                      sys.exit(1)
+
+          print(f"Linux version   : {linux_version}")
+          print(f"Windows version : {windows_version}")
+          print("Version validation passed.")
+          PY
+
+      - name: Repository credential hygiene
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          import pathlib
+          import re
+          import subprocess
+          import sys
+
+          # Telegram bot token pattern.
+          token_pattern = re.compile(
+              rb"(?<![A-Za-z0-9_-])"
+              rb"[0-9]{8,12}:"
+              rb"[A-Za-z0-9_-]{30,}"
+              rb"(?![A-Za-z0-9_-])"
+          )
+
+          result = subprocess.run(
+              ["git", "ls-files", "-z"],
+              check=True,
+              stdout=subprocess.PIPE,
+          )
+
+          files = [
+              pathlib.Path(value.decode("utf-8", "replace"))
+              for value in result.stdout.split(b"\0")
+              if value
+          ]
+
+          findings = []
+
+          for path in files:
+              if not path.is_file():
+                  continue
+
+              try:
+                  data = path.read_bytes()
+              except OSError:
+                  continue
+
+              for match in token_pattern.finditer(data):
+                  line_number = (
+                      data[:match.start()].count(b"\n") + 1
+                  )
+
+                  findings.append(
+                      f"{path}:{line_number}"
+                  )
+
+          if findings:
+              print("Potential Telegram credentials detected:")
+
+              for finding in findings:
+                  print(f"  {finding}")
+
+              print(
+                  "::error::Remove credentials from "
+                  "tracked repository files."
+              )
+
+              sys.exit(1)
+
+          print("No Telegram bot credentials detected.")
+          PY
+
+      - name: Validate private runtime files are not tracked
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          tracked="$(git ls-files)"
+
+          forbidden=(
+            ".env"
+            "server_control.log"
+            "config.json"
+            "managed_tasks.json"
+          )
+
+          for file in "${forbidden[@]}"; do
+            if printf '%s\n' "$tracked" | grep -Fxq "$file"; then
+              echo "::error::Runtime/private file is tracked: $file"
+              exit 1
+            fi
+          done
+
+          if printf '%s\n' "$tracked" \
+            | grep -Eq '(^|/)__pycache__/|\.py[co]$'; then
+
+            echo "::error::Python cache files are tracked."
+            exit 1
+          fi
+
+          echo "Repository hygiene passed."
+
+  linux:
+    name: linux / Python ${{ matrix.python-version }}
+    needs: metadata
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        python-version:
+          - "3.10"
+          - "3.12"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: requirements-linux.txt
+
+      - name: Show Python environment
+        run: |
+          python --version
+          python -m pip --version
+
+      - name: Upgrade pip tooling
+        run: |
+          python -m pip install \
+            --disable-pip-version-check \
+            --upgrade pip setuptools wheel
+
+      - name: Install Linux dependencies
+        run: |
+          python -m pip install \
+            --disable-pip-version-check \
+            -r requirements-linux.txt
+
+      - name: Compile Linux application
+        run: |
+          python -m py_compile server_control_linux.py
+
+      - name: Validate dependency environment
+        run: |
+          python -m pip check
+
+  windows:
+    name: windows / Python ${{ matrix.python-version }}
+    needs: metadata
+    runs-on: windows-latest
+    timeout-minutes: 15
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        python-version:
+          - "3.10"
+          - "3.12"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: requirements-windows.txt
+
+      - name: Show Python environment
+        run: |
+          python --version
+          python -m pip --version
+
+      - name: Upgrade pip tooling
+        run: |
+          python -m pip install --disable-pip-version-check --upgrade pip setuptools wheel
+
+      - name: Install Windows dependencies
+        run: |
+          python -m pip install --disable-pip-version-check -r requirements-windows.txt
+
+      - name: Compile Windows application
+        run: |
+          python -m py_compile server_control_win.py
+
+      - name: Validate dependency environment
+        run: |
+          python -m pip check
+
+  summary:
+    name: summary
+    if: always()
+    needs:
+      - metadata
+      - linux
+      - windows
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: CI summary
+        shell: bash
+        run: |
+          {
+            echo "## Server Control Suite CI"
+            echo
+            echo "| Job | Result |"
+            echo "|---|---|"
+            echo "| Metadata | \`${{ needs.metadata.result }}\` |"
+            echo "| Linux | \`${{ needs.linux.result }}\` |"
+            echo "| Windows | \`${{ needs.windows.result }}\` |"
+            echo
+            echo "Ref: \`${GITHUB_REF_NAME}\`"
+            echo
+            echo "Commit: \`${GITHUB_SHA:0:8}\`"
+          } >> "$GITHUB_STEP_SUMMARY"
