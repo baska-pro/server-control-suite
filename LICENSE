@@ -1,20 +1,57 @@
+BASKA-PRO PERSONAL USE LICENSE
+Version 1.0
+
 Copyright (c) 2026 Lathif Baska
 All Rights Reserved.
 
-The source code and accompanying files in this repository are made publicly
-viewable for evaluation, personal use, testing, issue reporting, and
-collaboration with the copyright holder.
+Permission is granted to individuals to view, download, run, study, test,
+and modify this software solely for personal, private, and non-commercial use.
 
-Unless explicit written permission is granted by the copyright holder, no
-permission is granted to redistribute, republish, sublicense, sell, rebrand,
-or incorporate substantial portions of this software into another distributed
-product.
+You may make reasonable private backup copies and modifications for your own
+personal use.
+
+Unless explicit prior written permission is granted by the copyright holder,
+you may NOT:
+
+1. Redistribute, republish, mirror, upload, or otherwise make copies of this
+   software or substantial portions of its source code available to third
+   parties.
+
+2. Sell, rent, lease, sublicense, license, monetize, or commercially exploit
+   this software or any substantial portion of it.
+
+3. Rebrand, rename, or present this software or substantial portions of it as
+   your own work or product.
+
+4. Incorporate this software or substantial portions of it into another
+   distributed, commercial, paid, or publicly offered product or service.
+
+5. Offer this software, modified or unmodified, as a hosted service,
+   Software-as-a-Service (SaaS), paid service, commercial service, or other
+   revenue-generating service.
+
+6. Remove or alter copyright notices, attribution notices, or this license.
+
+Modification for personal and private use is permitted, but distribution of
+modified versions is not permitted without prior written permission from the
+copyright holder.
+
+No patent, trademark, branding, or other intellectual-property rights are
+granted except for the limited personal-use rights expressly stated above.
+
+For redistribution, commercial use, integration into another distributed
+product, or any use outside the permissions above, prior written permission
+from the copyright holder is required.
+
+Permission requests may be submitted through:
+
+https://github.com/baska-pro
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY ARISING
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OF THE SOFTWARE.
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 
-For reuse or redistribution permission, contact the copyright holder through:
-https://github.com/baska-pro
+IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES, OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE,
+ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
